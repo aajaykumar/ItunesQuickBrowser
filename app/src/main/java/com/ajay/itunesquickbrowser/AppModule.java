@@ -18,6 +18,8 @@ import de.greenrobot.event.EventBus;
 @Module
 public class AppModule {
 
+    public static final String SHARED_PREF_NAME = "ItunesQuickBrowser";
+
     private final Application application;
 
     private final EventBus eventBus;
@@ -42,7 +44,7 @@ public class AppModule {
     @Provides
     @Singleton
     SharedPreferences provideSharedPreference() {
-        return application.getSharedPreferences("ItunesQuickBrowser", Context.MODE_PRIVATE);
+        return application.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
     }
 
     @Provides

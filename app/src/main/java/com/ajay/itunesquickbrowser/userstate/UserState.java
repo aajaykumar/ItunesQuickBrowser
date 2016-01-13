@@ -9,7 +9,7 @@ import com.ajay.itunesquickbrowser.model.Entity;
  */
 public class UserState {
 
-    private static final String KEY_ENTITY_POSITION = "EntityPosition";
+    public static final String KEY_ENTITY_POSITION = "EntityPosition";
 
     private final SharedPreferences sharedPreferences;
 
@@ -22,6 +22,10 @@ public class UserState {
     }
 
     public void updateEntityPosition(final int entityPosition) {
+        if (entityPosition < 0 || entityPosition >= Entity.values().length) {
+            return;
+        }
+
         sharedPreferences.edit().putInt(KEY_ENTITY_POSITION, entityPosition).apply();
     }
 

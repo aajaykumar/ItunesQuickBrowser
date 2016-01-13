@@ -8,11 +8,11 @@ public enum Entity {
     ALL("All", ""),
     MOVIE("Movie", "movie"),
     PODCAST("Podcast", "podcast"),
-    MUSIC("Music", "song"),
+    MUSIC("Song", "song"),
     MUSIC_VIDEO("Music Video", "musicVideo"),
     AUDIO_BOOK("Audio Book", "audiobook"),
     SHORT_FILM("Short Film", "shortFilm"),
-    TV_SHOW("TV Show", "tvShow"),
+    TV_SHOW("TV Show", "tvSeason"),
     SOFTWARE("Software", "software"),
     EBOOK("Ebook", "ebook");
 

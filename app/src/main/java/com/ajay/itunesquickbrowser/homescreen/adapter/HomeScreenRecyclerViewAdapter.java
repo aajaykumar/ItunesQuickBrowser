@@ -18,7 +18,7 @@ import javax.inject.Inject;
 /**
  * Created by ajay on 1/12/16.
  */
-public final class HomeScreenRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeScreenRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Inject
     @Nullable
@@ -70,6 +70,13 @@ public final class HomeScreenRecyclerViewAdapter extends RecyclerView.Adapter<Re
                 (searchResultsViewCount > 0 ? numOfResultsViewCount + searchResultsViewCount : 0);
     }
 
+    /*
+     * This needs to be injected from TestInjector, creating which is out of scope for this quick project
+     */
+    public void setSearchResponseForTesting(final SearchResponse searchResponse) {
+        this.searchResponse = searchResponse;
+    }
+
     public enum ViewType {
         ENTITY_HEADER(0),
         NUM_OF_RESULTS(1),
@@ -81,7 +88,7 @@ public final class HomeScreenRecyclerViewAdapter extends RecyclerView.Adapter<Re
             this.viewType = viewType;
         }
 
-        static ViewType fromInt(final int viewType) {
+        public static ViewType fromInt(final int viewType) {
             switch (viewType) {
                 case 0:
                     return ENTITY_HEADER;
@@ -90,6 +97,10 @@ public final class HomeScreenRecyclerViewAdapter extends RecyclerView.Adapter<Re
                 default:
                     return SEARCH_RESULTS;
             }
+        }
+
+        public int toInt() {
+            return viewType;
         }
     }
 

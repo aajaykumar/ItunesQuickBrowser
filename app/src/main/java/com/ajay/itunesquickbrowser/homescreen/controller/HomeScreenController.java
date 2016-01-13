@@ -46,7 +46,15 @@ public class HomeScreenController {
         Injector.getInstance().getApplicationComponent().inject(this);
     }
 
+    public HomeScreenController(boolean ignoreMe) {
+        // Used for testing
+    }
+
     public boolean fetchSearchResponse(final String searchTerm) {
+        if (searchTerm == null) {
+            return false;
+        }
+
         final Entity entity = userState.getEntity();
 
         if (searchTerm.equals(lastSearchTermSearched) && entity.equals(lastEntitySearched)) {
@@ -58,8 +66,9 @@ public class HomeScreenController {
 
         final Call<SearchResponse> searchResponseCall = itunesSearchAPIService.getSearchResponse(searchTerm, entity.getValue());
 
-
-        searchResponseCall.enqueue(new HttpCallback());
+        if (searchResponseCall != null) {
+            searchResponseCall.enqueue(new HttpCallback());
+        }
 
         return true;
     }
