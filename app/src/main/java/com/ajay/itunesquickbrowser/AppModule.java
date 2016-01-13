@@ -1,6 +1,10 @@
 package com.ajay.itunesquickbrowser;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.ajay.itunesquickbrowser.userstate.UserState;
 
 import javax.inject.Singleton;
 
@@ -16,8 +20,11 @@ public class AppModule {
 
     private final Application application;
 
+    private final EventBus eventBus;
+
     public AppModule(final Application application) {
         this.application = application;
+        eventBus = new EventBus();
     }
 
     @Provides
@@ -29,6 +36,19 @@ public class AppModule {
     @Provides
     @Singleton
     EventBus provideEventBus() {
-        return new EventBus();
+        return eventBus;
     }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharedPreference() {
+        return application.getSharedPreferences("ItunesQuickBrowser", Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
+    UserState providesUserState(final SharedPreferences sharedPreferences) {
+        return new UserState(sharedPreferences);
+    }
+
 }

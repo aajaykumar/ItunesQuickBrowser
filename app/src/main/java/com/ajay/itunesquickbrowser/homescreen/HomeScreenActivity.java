@@ -1,23 +1,26 @@
 package com.ajay.itunesquickbrowser.homescreen;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ajay.itunesquickbrowser.R;
 import com.ajay.itunesquickbrowser.homescreen.controller.HomeScreenController;
 import com.ajay.itunesquickbrowser.injection.Injector;
-import com.ajay.itunesquickbrowser.model.Entity;
-import com.ajay.itunesquickbrowser.model.SearchResponse;
 import com.ajay.itunesquickbrowser.network.SearchResponseReceivedEvent;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -27,9 +30,11 @@ public class HomeScreenActivity extends AppCompatActivity {
     @Inject
     EventBus eventBus;
 
-    @Inject
-    @Nullable
-    SearchResponse searchResponse;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
+    @Bind(R.id.progress_bar)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,52 +44,68 @@ public class HomeScreenActivity extends AppCompatActivity {
 
         eventBus.register(this);
 
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.home_screen_activity);
+
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                //TODO Write search logic here
-                homeScreenController.fetchSearchResponse("bird", Entity.ALL);
-            }
-        });
+        handleSearchRequestIfApplicable(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
+
+        handleSearchRequestIfApplicable(intent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        updateSearchableInfo(menu);
+
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        if (eventBus != null) {
+        if (eventBus != null && eventBus.isRegistered(this)) {
             eventBus.unregister(this);
+        }
+
+        ButterKnife.unbind(this);
+    }
+
+    @SuppressWarnings("unused")
+    public void onEvent(final SearchResponseReceivedEvent event) {
+        if (!event.isSuccessful() || event.isEmpty()) {
+            Snackbar.make(toolbar, R.string.no_result, Snackbar.LENGTH_LONG).show();
+        }
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
         }
     }
 
-    public void onEvent(final SearchResponseReceivedEvent event) {
+    private void updateSearchableInfo(final Menu menu) {
+        final SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
 
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+    }
+
+    private void handleSearchRequestIfApplicable(final Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            final String query = intent.getStringExtra(SearchManager.QUERY);
+
+            if (homeScreenController.fetchSearchResponse(query)) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

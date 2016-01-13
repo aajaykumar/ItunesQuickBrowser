@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">ItunesQuickBrowser</string>
+
     <string name="action_settings">Settings</string>
+
+    <string name="menu_search">Search</string>
+
+    <string name="pick_an_entity">Pick an Entity</string>
+
+    <string name="search_hint">Enter text here</string>
+
+    <string name="no_of_results">No. of results: %s</string>
+
+    <string name="price">&#36; %s</string>
+
+    <string name="thumbnail_image_cd">Thumbnail Image</string>
+
+    <string name="error_message">Oops&#33;&#33;&#33; An error occurred. Please try again later</string>
+    <string name="no_result">No Results for selection :(</string>
+
 </resources>

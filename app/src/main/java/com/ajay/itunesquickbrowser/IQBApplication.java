@@ -13,6 +13,7 @@ public final class IQBApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+
         Injector.getInstance().initializeApplicationComponent(this);
     }
 }

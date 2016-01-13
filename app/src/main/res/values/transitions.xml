@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="transition_tool_bar">Toolbar</string>
+
+    <string name="transition_image_content">ImageContent</string>
+
+    <string name="transition_title">TitleContent</string>
+
+    <string name="transition_kind">KindContent</string>
+
+    <string name="transition_price">PriceContent</string>
+
+</resources>

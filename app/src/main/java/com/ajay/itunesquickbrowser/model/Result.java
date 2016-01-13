@@ -61,4 +61,6 @@ public class Result {
     public String currency;
 
     public String primaryGenreName;
+
+    public String longDescription;
 }

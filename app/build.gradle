@@ -1,3 +1,4 @@
+//noinspection GradleCompatible
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -7,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.ajay.itunesquickbrowser"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -26,8 +27,10 @@ dependencies {
     // Android dependencies
     compile group: 'com.android.support', name: 'appcompat-v7', version:'23.1.1'
     compile group: 'com.android.support', name: 'design', version:'23.1.1'
+    compile group: 'com.android.support', name: 'cardview-v7', version: '23.1.1'
+    compile group: 'com.android.support', name: 'recyclerview-v7', version: '23.1.1'
 
-    // Dagger
+    // Dagger2
     compile group: 'com.google.dagger', name: 'dagger', version: '2.0.2'
     provided group: 'com.google.dagger', name: 'dagger-compiler', version: '2.0.2'
     provided group: 'org.glassfish', name: 'javax.annotation', version: '10.0-b28'
@@ -44,6 +47,12 @@ dependencies {
 
     // GreenRobot
     compile group: 'de.greenrobot', name:'eventbus', version:'2.4.0'
+
+    // Butterknife
+    compile group: 'com.jakewharton', name: 'butterknife', version:'7.0.1'
+
+    // Picasso
+    compile group: 'com.squareup.picasso', name: 'picasso', version: '2.5.2'
 
     testCompile 'junit:junit:4.12'
 }

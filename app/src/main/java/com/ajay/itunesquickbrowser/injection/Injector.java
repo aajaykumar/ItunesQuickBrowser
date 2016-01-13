@@ -4,9 +4,9 @@ import android.app.Application;
 
 import com.ajay.itunesquickbrowser.AppModule;
 import com.ajay.itunesquickbrowser.ApplicationComponent;
+import com.ajay.itunesquickbrowser.DaggerApplicationComponent;
 import com.ajay.itunesquickbrowser.model.SearchResponse;
 import com.ajay.itunesquickbrowser.model.SearchResponseModule;
-import com.ajay.itunesquickbrowser.network.DaggerApplicationComponent;
 import com.ajay.itunesquickbrowser.network.NetworkModule;
 
 /**
@@ -57,6 +57,5 @@ public final class Injector {
     private NetworkModule getNetworkModule() {
         return networkModule == null ? networkModule = new NetworkModule() : networkModule;
     }
-
 
 }

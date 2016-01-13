@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ajay.itunesquickbrowser.detailscreen.view.DetailScreenView
+    android:id="@+id/detail_screen_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="ifContentScrolls">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/product_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/thumbnail_image_cd"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                android:textStyle="bold"
+                android:transitionName="@string/transition_image_content"/>
+
+            <TextView
+                android:id="@+id/name_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:transitionName="@string/transition_title"/>
+
+            <TextView
+                android:id="@+id/artist_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/kind_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:transitionName="@string/transition_kind"/>
+
+            <TextView
+                android:id="@+id/price_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:transitionName="@string/transition_price"/>
+
+            <TextView
+                android:id="@+id/desc_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</com.ajay.itunesquickbrowser.detailscreen.view.DetailScreenView>

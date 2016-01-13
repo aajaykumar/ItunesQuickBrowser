@@ -5,10 +5,10 @@ package com.ajay.itunesquickbrowser.model;
  */
 public enum Entity {
 
-    ALL("All", "all"),
+    ALL("All", ""),
     MOVIE("Movie", "movie"),
     PODCAST("Podcast", "podcast"),
-    MUSIC("Music", "music"),
+    MUSIC("Music", "song"),
     MUSIC_VIDEO("Music Video", "musicVideo"),
     AUDIO_BOOK("Audio Book", "audiobook"),
     SHORT_FILM("Short Film", "shortFilm"),
@@ -29,5 +29,10 @@ public enum Entity {
 
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
     }
 }
